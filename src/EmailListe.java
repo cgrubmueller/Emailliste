@@ -21,7 +21,7 @@ public class EmailListe {
 	}
 	
 	public String[] searchAddress(Schueler schueler) {
-		String[] temp = new String[0];
+		String[] temp = new String[this.emailliste.get(schueler).size()];
 		this.emailliste.get(schueler).toArray(temp);
 		return temp;
 	}
@@ -32,7 +32,7 @@ public class EmailListe {
 	
 	public void delAddress(Schueler schueler, String address) {
 		if (this.emailliste.containsKey(schueler)) {
-			this.emailliste.get(schueler).remove(address);
+			if (this.emailliste.get(schueler).contains(address)) this.emailliste.get(schueler).remove(address);
 		}
 	}
 	
@@ -44,11 +44,13 @@ public class EmailListe {
 				temp.append(cache1.getVorname() + cache1.getNachname() + ": ");
 				//Email-Adressen
 				Iterator<String> it = this.emailliste.get(cache1).iterator();
+				String cache2 = "";
 				while (it.hasNext()) {
+					cache2 = it.next();
 					if (it.hasNext()) {
-						temp.append(it + ", ");
+						temp.append(cache2 + ", ");
 					} else {
-						temp.append(it);
+						temp.append(cache2);
 					}
 				}
 				//Zeilenumbruch
